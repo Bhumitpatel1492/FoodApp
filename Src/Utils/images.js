@@ -6,6 +6,9 @@ const Images = {
   Ic_Profile_out: require('../../Assets/Images/user-focus-out.png'),
   Ic_Setting_in: require('../../Assets/Images/setting-in.png'),
   Ic_Setting_out: require('../../Assets/Images/setting-out.png'),
+  Ic_User_Profile: require('../../Assets/Images/Profile_icon.png'),
+  Ic_Notification: require('../../Assets/Images/Ic_bell.png'),
+  Ic_Seach_Icon: require('../../Assets/Images/Ic_search.png')
 
 };
 

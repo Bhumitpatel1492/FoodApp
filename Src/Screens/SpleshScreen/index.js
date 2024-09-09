@@ -4,30 +4,45 @@ import { View, Text, StyleSheet, ActivityIndicator, Image, SafeAreaView, StatusB
 import Images from '../../Utils/images';
 import color from '../../Utils/color';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
 // create a component
 const SpleshScreen = ({ navigation }) => {
+  const textone = useSharedValue(0)
+  const texttwo = useSharedValue(0)
+
   useEffect(() => {
+    textone.value = 0;
+    texttwo.value = 0
+    setTimeout(() => textone.value = withSpring(textone.value + hp(5)), 100)
+    setTimeout(() => texttwo.value = withSpring(texttwo.value + hp(5.5)), 300)
+
     setTimeout(() => {
-      navigation.navigate('Login')
-    }, 1200);
+      navigation.navigate('HomeScreen')
+    }, 2500);
   }, [])
-  return (
-    <SafeAreaView style={styles.container}>
+
+  const rendermainview = () => {
+    return (
       <View style={styles.container}>
         <StatusBar backgroundColor={color.TRANSPARENT} />
-        <View style={{ backgroundColor: color.WHITE, height: 300, width: 300, borderRadius: 150, justifyContent: "center", alignItems: "center" }}>
+        <Animated.View style={{ backgroundColor: color.WHITE, height: 300, width: 300, borderRadius: 150, justifyContent: "center", alignItems: "center" }}>
           <Image
             source={Images.Ic_Splesh_logo}
             resizeMode='contain'
             style={{ height: hp(250), width: hp(250), justifyContent: "center", borderRadius: hp(120) }}
           />
-        </View>
+        </Animated.View>
         <View style={styles.txtview}>
           <Text style={styles.txt}>{"Foddy"}</Text>
           <Text style={[styles.txt, { fontSize: 18, }]}>{'Food is always right'}</Text>
         </View>
       </View>
+    )
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {rendermainview()}
     </SafeAreaView>
   );
 };
@@ -38,7 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: color.COLOR_ORANGE_CARD
+    // backgroundColor: color.COLOR_ORANGE_CARD
   },
   txtview: {
     marginTop: 22,
