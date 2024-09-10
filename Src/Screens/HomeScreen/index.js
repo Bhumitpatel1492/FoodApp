@@ -1,17 +1,61 @@
 // import libraries
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SectionList, Image, Animated, ScrollView, TextInput } from 'react-native';
+import { View, Text, StyleSheet, SectionList, Image, Animated, ScrollView, TextInput, Alert } from 'react-native';
 import Images from '../../Utils/images';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import color from '../../Utils/color';
 import Categories from '../Categories';
-
+import axios from 'axios';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import recipesView from '../Recipes'
+import RecipesView from '../Recipes';
 // create a component
 const HomeScreen = () => {
   const [listData, setListData] = useState([]);
   const [fadeAnim] = useState(new Animated.Value(0));
   const [Search, setSearch] = useState('')
   const [ActiveCategory, setActiveCategory] = useState('Beef')
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [mealLoading, setMealLoading] = useState(true)
+  const [meals, setMeals] = useState([])
+
+  useEffect(() => {
+    getCategories()
+    getRecipes()
+  }, [])
+
+  const getCategories = async () => {
+    try {
+      const responce = await axios.get('https://themealdb.com/api/json/v1/1/categories.php')
+      // console.log('getCategories List Api Success--->', responce?.data)
+      if (responce && responce?.data) {
+        setCategories(responce?.data?.categories)
+        setLoading(false)
+      }
+
+    } catch (error) {
+      Alert.alert(error)
+      console.log('getCategories List Api Error--->', error)
+      setLoading(false)
+    }
+  }
+
+  const getRecipes = async (category = "Beef") => {
+    try {
+      const responce = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+      console.log('getRecipes List Api Success--->', responce?.data)
+      if (responce && responce?.data) {
+        setMeals(responce?.data?.meals)
+        setMealLoading(false)
+      }
+
+    } catch (error) {
+      Alert.alert(error)
+      console.log('getRecipes List Api Error--->', error)
+      setMealLoading(false)
+    }
+  }
 
   const renderScreenheader = () => {
     return (
@@ -54,10 +98,71 @@ const HomeScreen = () => {
   const renderCategoriesView = () => {
     return (
       <View style={{ marginTop: 20 }}>
-        <Categories activeCategory={ActiveCategory} setActiveCategory={setActiveCategory} />
+        {categories?.length > 0 && !loading ? <Categories categories={categories} activeCategory={ActiveCategory} setActiveCategory={setActiveCategory} /> : renderCategoriesViewskeletonplaceholder()}
       </View>
     )
   }
+  const renderCategoriesViewskeletonplaceholder = () => {
+    return (
+      <SkeletonPlaceholder borderRadius={4}>
+        <SkeletonPlaceholder.Item flexDirection="row" justifyContent="space-between">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonPlaceholder.Item
+              key={index}
+              width={60}
+              height={60}
+              borderRadius={30} // Makes it a circle
+              marginLeft={10}   // Adds spacing between circles
+            />
+          ))}
+        </SkeletonPlaceholder.Item>
+      </SkeletonPlaceholder>
+
+    );
+  }
+  const SkeletonRecipesCard = ({ numColumns = 2 }) => {
+    return (
+      <SkeletonPlaceholder>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          {Array.from({ length: 6 }).map((_, index) => (
+            <SkeletonPlaceholder.Item
+              key={index}
+              width={'48%'}
+              borderRadius={35}
+              marginBottom={10}
+            >
+              {/* Skeleton for Image */}
+              <SkeletonPlaceholder.Item
+                height={index % 3 === 0 ? hp(25) : hp(35)} // Different heights as per the condition
+                borderRadius={35}
+                marginBottom={10}
+              />
+              {/* Skeleton for Text */}
+              <SkeletonPlaceholder.Item
+                width="80%"
+                height={hp(1.5)} // Matching the font size for the text skeleton
+                borderRadius={4}
+                marginTop={10}
+                alignSelf="center"
+              />
+            </SkeletonPlaceholder.Item>
+          ))}
+        </View>
+      </SkeletonPlaceholder>
+    );
+  };
+
+  const renderRecipeslist = () => {
+    return (
+      <View style={{ marginTop: 15 }}>
+        {
+          !mealLoading ? <RecipesView meals={meals} /> : SkeletonRecipesCard(2)
+        }
+      </View>
+    )
+  }
+
+
   const rendermainview = () => {
     return (
       <ScrollView
@@ -68,6 +173,7 @@ const HomeScreen = () => {
         {renderProfileView()}
         {renderSearchView()}
         {renderCategoriesView()}
+        {renderRecipeslist()}
       </ScrollView>
     )
   }

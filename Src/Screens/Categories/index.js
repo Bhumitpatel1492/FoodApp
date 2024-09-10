@@ -7,7 +7,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 // create a component
-const Categories = ({ activeCategory, setActiveCategory }) => {
+const Categories = ({ categories, activeCategory, setActiveCategory }) => {
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
@@ -15,22 +15,24 @@ const Categories = ({ activeCategory, setActiveCategory }) => {
         showsHorizontalScrollIndicator={false}
       >
         {
-          categorydata?.map((cat, index) => {
-            let isActive = cat.name == activeCategory;
+          categories?.map((cat, index) => {
+            let isActive = cat.strCategory == activeCategory;
 
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => setActiveCategory(cat?.name)}
+                onPress={() => setActiveCategory(cat?.strCategory)}
               >
                 <View style={[
                   styles.imageview,
-                  isActive && { backgroundColor: color.YELLOW, borderRadius: hp(7) }
+
                 ]}>
-                  <Image source={{ uri: cat?.image }}
-                    style={[styles.imagesty, isActive && { borderRadius: hp(7) }]}
-                  />
-                  <Text style={styles.itemtxt}>{cat?.name}</Text>
+                  <View style={[styles.subimmview, { backgroundColor: isActive ? color.YELLOW : 'transparent' }]}>
+                    <Image source={{ uri: cat?.strCategoryThumb }}
+                      style={[styles.imagesty, isActive && { borderRadius: hp(7) }]}
+                    />
+                  </View>
+                  <Text style={styles.itemtxt}>{cat?.strCategory}</Text>
                 </View>
               </TouchableOpacity>
             )
@@ -57,8 +59,8 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   imagesty: {
-    width: hp(12),
-    height: hp(12),
+    width: hp(8),
+    height: hp(8),
     resizeMode: "center",
     justifyContent: 'center',
     borderRadius: hp(7), // Default border radius for image
@@ -66,7 +68,15 @@ const styles = StyleSheet.create({
   itemtxt: {
     fontSize: hp(2.2),
     fontWeight: '500',
-    color: color.BLACK
+    color: color.BLACK,
+    marginTop: 10
+  },
+  subimmview: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: hp(10),
+    height: hp(10),
+    borderRadius: hp(7),
   }
 });
 
