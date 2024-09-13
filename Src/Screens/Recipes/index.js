@@ -7,9 +7,11 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import MasonryList from '@react-native-seoul/masonry-list';
 import RecipesCard from '../RecipesCard';
+import { useNavigation } from '@react-navigation/native';
 
 // create a component
 const RecipesView = ({ meals, activeCategory, setActiveCategory }) => {
+  const navigation = useNavigation()
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <View>
@@ -19,7 +21,7 @@ const RecipesView = ({ meals, activeCategory, setActiveCategory }) => {
           keyExtractor={(item) => item?.idMeal}
           numColumns={2}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item, i }) => <RecipesCard item={item} index={i} />}
+          renderItem={({ item, i }) => <RecipesCard navigation={navigation} item={item} index={i} />}
           // refreshing={isLoadingNext}
           // onRefresh={() => refetch({ first: ITEM_CNT })}
           onEndReachedThreshold={0.1}

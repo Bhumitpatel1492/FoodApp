@@ -40,7 +40,6 @@ const HomeScreen = () => {
       setLoading(false)
     }
   }
-
   const getRecipes = async (category = "Beef") => {
     try {
       const responce = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
@@ -58,14 +57,12 @@ const HomeScreen = () => {
       setMealLoading(false)
     }
   }
-
   const handlechangeCategory = (category) => {
     setMealLoading(true)
     getRecipes(category)
     setActiveCategory(category)
     setMeals([])
   }
-
   const renderScreenheader = () => {
     return (
       <View style={{ height: 60, flexDirection: "row", justifyContent: 'space-between' }}>
@@ -160,7 +157,6 @@ const HomeScreen = () => {
       </SkeletonPlaceholder>
     );
   };
-
   const renderRecipeslist = () => {
     return (
       <View style={{ marginTop: 15 }}>
@@ -170,8 +166,6 @@ const HomeScreen = () => {
       </View>
     )
   }
-
-
   const rendermainview = () => {
     return (
       <ScrollView

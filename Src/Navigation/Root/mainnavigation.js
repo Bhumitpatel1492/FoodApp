@@ -5,12 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Login from '../../Screens/LoginScreen';
 import Register from '../../Screens/RegisterScreen';
 import HomeScreen from '../../Screens/HomeScreen';
-import ProfileScreen from '../../Screens/ProfileScreen/Index';
 import SettingsScreen from '../../Screens/SettingsScreen/Index';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Image } from 'react-native';
 import Images from '../../Utils/images';
 import SpleshScreen from '../../Screens/SpleshScreen';
+import Recipesdetails from '../../Screens/RecipesDetails';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -45,9 +45,9 @@ const TabNavigator = () => {
         options={{ tabBarLabel: 'Home' }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{ tabBarLabel: 'Profile' }}
+        name="Recipesdetails"
+        component={Recipesdetails}
+        options={{ tabBarLabel: 'Recipes' }}
       />
       <Tab.Screen
         name="Settings"
