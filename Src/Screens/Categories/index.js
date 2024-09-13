@@ -7,7 +7,7 @@ import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 // create a component
-const Categories = ({ categories, activeCategory, setActiveCategory }) => {
+const Categories = ({ categories, activeCategory, handlechangeCategory }) => {
   return (
     <Animated.View entering={FadeInDown.duration(500).springify()}>
       <ScrollView
@@ -21,7 +21,7 @@ const Categories = ({ categories, activeCategory, setActiveCategory }) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => setActiveCategory(cat?.strCategory)}
+                onPress={() => handlechangeCategory(cat?.strCategory)}
               >
                 <View style={[
                   styles.imageview,

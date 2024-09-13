@@ -46,6 +46,8 @@ const HomeScreen = () => {
       const responce = await axios.get(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
       console.log('getRecipes List Api Success--->', responce?.data)
       if (responce && responce?.data) {
+        console.log('if--data--getRecipes List Api', responce?.data?.meals);
+
         setMeals(responce?.data?.meals)
         setMealLoading(false)
       }
@@ -55,6 +57,13 @@ const HomeScreen = () => {
       console.log('getRecipes List Api Error--->', error)
       setMealLoading(false)
     }
+  }
+
+  const handlechangeCategory = (category) => {
+    setMealLoading(true)
+    getRecipes(category)
+    setActiveCategory(category)
+    setMeals([])
   }
 
   const renderScreenheader = () => {
@@ -98,7 +107,7 @@ const HomeScreen = () => {
   const renderCategoriesView = () => {
     return (
       <View style={{ marginTop: 20 }}>
-        {categories?.length > 0 && !loading ? <Categories categories={categories} activeCategory={ActiveCategory} setActiveCategory={setActiveCategory} /> : renderCategoriesViewskeletonplaceholder()}
+        {categories?.length > 0 && !loading ? <Categories categories={categories} activeCategory={ActiveCategory} handlechangeCategory={handlechangeCategory} /> : renderCategoriesViewskeletonplaceholder()}
       </View>
     )
   }
