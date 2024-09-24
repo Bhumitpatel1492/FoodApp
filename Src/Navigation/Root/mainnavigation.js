@@ -79,12 +79,24 @@ const MainNavigation = () => {
           name="Register"
           component={Register}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
 
           options={{ headerShown: false, headerShadowVisible: false }}
           name="HomeScreen"
           component={TabNavigator}
+        /> */}
+
+        <Stack.Screen
+          options={{ headerShadowVisible: false }}
+          name="Home"
+          component={HomeScreen}
         />
+        <Stack.Screen
+          options={{ headerShadowVisible: false }}
+          name="Recipesdetails"
+          component={Recipesdetails}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

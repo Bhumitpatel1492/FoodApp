@@ -1,4 +1,3 @@
-// import libraries
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SectionList, Image, Animated, ScrollView, TextInput, Alert } from 'react-native';
 import Images from '../../Utils/images';
@@ -7,12 +6,9 @@ import color from '../../Utils/color';
 import Categories from '../Categories';
 import axios from 'axios';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import recipesView from '../Recipes'
 import RecipesView from '../Recipes';
-// create a component
+
 const HomeScreen = () => {
-  const [listData, setListData] = useState([]);
-  const [fadeAnim] = useState(new Animated.Value(0));
   const [Search, setSearch] = useState('')
   const [ActiveCategory, setActiveCategory] = useState('Beef')
   const [categories, setCategories] = useState([])
@@ -188,7 +184,6 @@ const HomeScreen = () => {
   );
 };
 
-// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -250,5 +245,4 @@ const styles = StyleSheet.create({
         renderItem={renderItem}
       /> */}
 
-// make this component available to the app
 export default HomeScreen;

@@ -1,4 +1,3 @@
-//import libraries
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import color from '../../Utils/color';
@@ -9,7 +8,6 @@ import MasonryList from '@react-native-seoul/masonry-list';
 import RecipesCard from '../RecipesCard';
 import { useNavigation } from '@react-navigation/native';
 
-// create a component
 const RecipesView = ({ meals, activeCategory, setActiveCategory }) => {
   const navigation = useNavigation()
   return (
@@ -32,7 +30,6 @@ const RecipesView = ({ meals, activeCategory, setActiveCategory }) => {
   );
 };
 
-// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,5 +45,4 @@ const styles = StyleSheet.create({
 
 });
 
-//make this component available to the app
 export default RecipesView;

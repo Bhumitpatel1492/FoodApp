@@ -8,7 +8,13 @@ const Images = {
   Ic_Setting_out: require('../../Assets/Images/setting-out.png'),
   Ic_User_Profile: require('../../Assets/Images/Profile_icon.png'),
   Ic_Notification: require('../../Assets/Images/Ic_bell.png'),
-  Ic_Seach_Icon: require('../../Assets/Images/Ic_search.png')
+  Ic_Seach_Icon: require('../../Assets/Images/Ic_search.png'),
+  Ic_Back_Icon: require('../../Assets/Images/back_disable.png'),
+  Ic_Clock_Icon: require('../../Assets/Images/ic_clock_.png'),
+  Ic_User_Icon: require('../../Assets/Images/ic_user.png'),
+  Ic_calories_Icon: require('../../Assets/Images/calories.png'),
+  Ic_stack_Icon: require('../../Assets/Images/stack.png'),
+
 
 };
 

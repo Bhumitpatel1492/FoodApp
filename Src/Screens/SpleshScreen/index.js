@@ -17,7 +17,7 @@ const SpleshScreen = ({ navigation }) => {
     setTimeout(() => texttwo.value = withSpring(texttwo.value + hp(5.5)), 300)
 
     setTimeout(() => {
-      navigation.navigate('HomeScreen')
+      navigation.navigate('Home')
     }, 2500);
   }, [])
 

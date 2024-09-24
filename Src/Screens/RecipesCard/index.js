@@ -1,11 +1,9 @@
-//import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import color from '../../Utils/color';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
-// create a component
 const RecipesCard = ({ item, index, navigation }) => {
   let isEven = index % 2 == 0
   return (
@@ -25,7 +23,6 @@ const RecipesCard = ({ item, index, navigation }) => {
   );
 };
 
-// define your styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -44,5 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-//make this component available to the app
 export default RecipesCard;
